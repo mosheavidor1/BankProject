@@ -1,4 +1,4 @@
-package infra;
+package infra.validations;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -17,8 +17,8 @@ import static org.testng.Assert.assertEquals;
                 tbodyElement = driver.findElement(By.xpath("//tbody"));
             } catch (NoSuchElementException e) {
                 System.out.println("No transactions yet");
-                WebElement backButton = driver.findElement(By.xpath("//button[normalize-space()='Back']"));
-                backButton.click();
+                WebElement withDrawlButton = driver.findElement(By.xpath("//button[normalize-space()='Back']"));
+                withDrawlButton.click();
                 driver.quit();
                 return false; // Exit the method since there are no transactions
             }
@@ -46,7 +46,7 @@ import static org.testng.Assert.assertEquals;
                 return true; // Transactions and assertions passed
             } else {
                 if (transactionsFound) {
-                    System.out.println("All transaction details not found");
+                    System.out.println("Transactions appears as expected");
                 } else {
                     System.out.println("No transactions yet");
                 }

@@ -1,9 +1,8 @@
 package actions;
 
-import infra.TransactionValidation;
+import infra.validations.TransactionValidation;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import infra.wait.WaitUntil;
 
 public class TransactionPage {
@@ -19,12 +18,10 @@ public class TransactionPage {
         wait.waitForElementToBeClickable(By.xpath("//button[normalize-space()='Transactions']")).click();
     }
 
-    public WebElement getTbodyElement() {
-        return wait.waitForElementToBeVisible(By.xpath("//tbody"));
-
-    }
 
     public boolean validateTransactions() {
+
         return TransactionValidation.validateTransactionDetails(driver);
+
     }
 }
