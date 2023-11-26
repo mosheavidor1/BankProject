@@ -11,6 +11,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class BankTesting {
@@ -106,10 +109,72 @@ public class BankTesting {
         } catch (NoSuchElementException e) {
             System.out.println("Element not found: Test failed");
         }
+
+        Thread.sleep(4000);
+        driver.findElement(By.xpath("//button[normalize-space()='Withdrawl']")).click();
+        Thread.sleep(4000);
+        driver.findElement(By.xpath("//input[@placeholder='amount']")).sendKeys("100");
+        Thread.sleep(4000);
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+        Thread.sleep(4000);
+
+        try {
+            // Check if the element with the specified class and text appears
+            WebElement successMessage = driver.findElement(By.xpath("//span[@class='error ng-binding' and text()='Transaction successful']"));
+
+            if (successMessage.isDisplayed()) {
+                System.out.println("Test succeeded: Transaction Successful");
+            } else {
+                System.out.println("Element found but not displayed");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Element not found: Test failed");
+        }
+        Thread.sleep(4000);
+        driver.findElement(By.xpath("//button[normalize-space()='Transactions']")).click();
+
+        Thread.sleep(4000);
+
+        try {
+            tbodyElement = driver.findElement(By.xpath("//tbody"));
+        } catch (NoSuchElementException e) {
+            System.out.println("No transactions yet");
+            WebElement backButton = driver.findElement(By.xpath("//button[normalize-space()='Back']"));
+            backButton.click();
+            driver.quit();
+            return; // Exit the method since there are no transactions
+        }
+
+        List<WebElement> transactionDetails = tbodyElement.findElements(By.xpath("//tr[@id='anchor0']/td"));
+        boolean transactionsFound = !transactionDetails.isEmpty();
+
+        if (transactionsFound && transactionDetails.size() >= 4) {
+            System.out.println("Transactions found");
+
+            // Assuming the transaction details are in a certain order:
+            String amount = transactionDetails.get(0).getText(); // e.g., "200"
+            String type = transactionDetails.get(1).getText(); // e.g., "Credit"
+            String value1 = transactionDetails.get(2).getText(); // e.g., "100"
+            String value2 = transactionDetails.get(3).getText(); // e.g., "100"
+
+            // Perform assertions for each transaction detail
+            assertEquals("200", amount);
+            assertEquals("Credit", type);
+            assertEquals("100", value1);
+            assertEquals("100", value2);
+
+            // If any of the assertions fail, the test will stop and fail at that point
+            // Continue with further actions/assertions if needed
+            // ...
+
+        } else {
+            if (transactionsFound) {
+                System.out.println("All transactions details found");
+            } else {
+                System.out.println("No transactions yet");
+            }
+            WebElement backButton = driver.findElement(By.xpath("//button[normalize-space()='Back']"));
+            backButton.click();
+        }
     }
-
 }
-
-
-
-
