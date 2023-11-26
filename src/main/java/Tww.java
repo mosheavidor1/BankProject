@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
-public class TestingBank {
+public class Tww {
 
     public WebDriver driver;
 
