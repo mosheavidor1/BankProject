@@ -15,9 +15,9 @@ import java.time.Duration;
         private WebDriver driver;
         private WebDriverWait wait;
 
-        public WaitUntil(WebDriver driver, int timeoutInSeconds) {
+        public WaitUntil(WebDriver driver, int timeInSeconds) {
             this.driver = driver;
-            this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+            this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeInSeconds));
         }
 
         public WebElement waitForElementToBeVisible(By locator) {
