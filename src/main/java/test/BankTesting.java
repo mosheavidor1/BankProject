@@ -6,13 +6,13 @@ import actions.TransactionPage;
 import actions.WithdrawalPage;
 import infra.wait.WaitUntil;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.NoSuchContextException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static infra.page_locators.Urls.webSiteURL;
 
 public class BankTesting {
 
@@ -37,7 +37,7 @@ public class BankTesting {
         withdrawalPage = new WithdrawalPage(driver, wait);
         transactionPage = new TransactionPage(driver, wait);
 
-        loginPage.navigateToLoginPage("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+        loginPage.navigateToLoginPage(webSiteURL);
         driver.manage().window().fullscreen();
     }
 

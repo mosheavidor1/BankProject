@@ -1,4 +1,3 @@
-
 package actions;
 
 import infra.wait.WaitUntil;
@@ -7,10 +6,18 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class WithdrawalPage {
+import static infra.page_locators.WithdrawalLocators.*;
 
+// The 'WithdrawalPage' class manages interactions related to withdrawal functionalities in a web application using Selenium WebDriver
+// It includes methods to input withdrawal amounts, click on the withdrawal submission button, and verify successful withdrawal messages
+// Utilizes 'WaitUntil' for element synchronization and predefined locators from 'WithdrawalLocators' for identifying elements
+// Error messages and success validation are handled within the class methods
+
+
+public class WithdrawalPage {
     private final WebDriver driver;
     private final WaitUntil wait;
+
 
     public WithdrawalPage(WebDriver driver, WaitUntil wait) {
         this.driver = driver;
@@ -19,48 +26,41 @@ public class WithdrawalPage {
 
     public void enterAmount(String amount) {
         try {
-            WebElement amountElement = wait.waitForElementToBeClickable(By.xpath("//input[@placeholder='amount']"));
+            WebElement amountElement = wait.waitForElementToBeClickable(By.xpath(AMOUNT_INPUT_LOCATOR));
             if (amountElement.isDisplayed()) {
                 amountElement.sendKeys(amount);
                 clickOnSubmitWithdrawal();
             }
         } catch (NoSuchElementException e) {
-            System.out.println("Element was not found");
+            System.out.println(ELEMENT_NOT_FOUND);
         }
     }
 
     public void clickOnSubmitWithdrawal() {
         try {
-            WebElement clickOnSubmit = wait.waitForElementToBeClickable(By.xpath("//button[@type='submit']"));
+            WebElement clickOnSubmit = wait.waitForElementToBeClickable(By.xpath(SUBMIT_BUTTON_LOCATOR));
             if (clickOnSubmit.isDisplayed()) {
                 clickOnSubmit.click();
-                succeedWithdrawal();
-
+                succeedWithdrawalMessage();
             } else {
-                System.out.println("Element is not clickable");
+                System.out.println(ELEMENT_NOT_CLICKABLE);
             }
         } catch (NoSuchElementException e) {
-            System.out.println("Element was not found");
+            System.out.println(ELEMENT_NOT_FOUND);
         }
     }
 
-    private void succeedWithdrawal() {
+    private void succeedWithdrawalMessage() {
         try {
-            WebElement successMessage = wait.waitForElementToBeVisible(By.xpath("//span[@class='error ng-binding' and text()='Transaction successful']"));
+            WebElement successMessage = wait.waitForElementToBeVisible(By.xpath(SUCCESS_MESSAGE_LOCATOR));
             if (successMessage.isDisplayed()) {
-                System.out.println("Withdrawal Successful");
+                System.out.println(WITHDRAWAL_SUCCESSFUL);
             } else {
-                System.out.println("Element found but not displayed");
+                System.out.println(ELEMENT_NOT_DISPLAYED);
             }
         } catch (NoSuchElementException e) {
-            System.out.println("Element not found: Test failed");
+            System.out.println(ELEMENT_NOT_FOUND_TEST_FAILED);
         }
     }
 }
-
-
-
-
-
-
 
