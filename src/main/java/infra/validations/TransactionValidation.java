@@ -32,14 +32,17 @@ public class TransactionValidation {
 
             String amount = transactionDetails.get(0).getText();
             String type = transactionDetails.get(1).getText();
-            String value1 = transactionDetails.get(2).getText();
-            String value2 = transactionDetails.get(3).getText();
+            String value = transactionDetails.get(2).getText();
+            String type2=transactionDetails.get((3)).getText();
+
 
 
             assertEquals("200", amount);
             assertEquals("Credit", type);
-            assertEquals("100", value1);
-            assertEquals("100", value2);
+            assertEquals("Debit", type2);
+            assertEquals("100", value);
+
+
 
 
             return true;
