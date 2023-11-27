@@ -2,7 +2,8 @@ package infra.page_locators;
 
 public class WithdrawalLocators {
 
-     public static final String AMOUNT_INPUT_LOCATOR = "//input[@placeholder='amount']";
+    public static final String AMOUNT_INPUT_LOCATOR = "//input[@placeholder='amount']";
+
      public static final String SUBMIT_BUTTON_LOCATOR = "//button[@type='submit']";
      public static final String SUCCESS_MESSAGE_LOCATOR = "//span[@class='error ng-binding' and text()='Transaction successful']";
 

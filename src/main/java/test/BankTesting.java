@@ -6,9 +6,11 @@ import actions.TransactionPage;
 import actions.WithdrawalPage;
 import infra.wait.WaitUntil;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.AfterClass;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -70,7 +72,7 @@ public class BankTesting {
 
 
     @Test(priority = 3)
-    public void setDeposit()  {
+    public void setDeposit() {
         depositePage.depositAmount("200");
 
     }
@@ -79,28 +81,21 @@ public class BankTesting {
 
     public void setWithdrawalPage() throws InterruptedException {
 
-        Thread.sleep(5000);
+        Thread.sleep(500);
         withdrawalPage.enterAmount("100");
     }
 
 
+
     @Test(priority = 5)
     public void validateTransactionsAppears() throws InterruptedException {
-
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         transactionPage.clickTransactionsButton();
-
-
         transactionPage.validateTransactions();
+
+
+
     }
-}
 
 
-
-
-//    @AfterClass
-//    public void teardown() {
-//        // Close the driver or perform necessary cleanup
-//        driver.quit();
-
-
+ }
